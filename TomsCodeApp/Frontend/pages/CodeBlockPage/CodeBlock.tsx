@@ -52,7 +52,7 @@ const CodeBlockPage: React.FC = () => {
       if (!isMentor) navigate("/");  
     });
 
-    // שמיעה להתראה על הגעת בלוק חדש
+    //  להתראה על הגעת בלוק חדש
     socket.on("new-code-block", (newBlock) => {
       alert(`A new code block titled "${newBlock.title}" has been added!`);
     });
