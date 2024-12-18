@@ -13,7 +13,7 @@ const app = express();
 const httpServer = createServer(app); 
 const io = new Server(httpServer, {
   cors: {
-    origin: "*", 
+  origin: "https://toms-coding-hub-1.onrender.com", //   Render
     methods: ["GET", "POST"],
   },
 });
@@ -97,7 +97,7 @@ socket.on("code-update", ({ roomId, code }) => {
 });
 
 // הרצת השרת
-httpServer.listen(PORT, () => {
+httpServer.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
