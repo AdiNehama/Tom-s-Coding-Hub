@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createCodeBlock } from "../../services/code_block_service";
+import "./CreateCodeBlock.css";
 
 const CreateCodeBlock: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -26,7 +27,7 @@ const CreateCodeBlock: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="div-create">
       <h1>Create New Code Block</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -47,7 +48,7 @@ const CreateCodeBlock: React.FC = () => {
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && <p style={{ color: "green" }}>{success}</p>}
-        <button type="submit">Create Code Block</button>
+        <button className="submit">Create Code Block</button>
       </form>
     </div>
   );

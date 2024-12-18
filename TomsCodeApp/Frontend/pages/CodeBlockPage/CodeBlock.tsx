@@ -82,9 +82,7 @@ const CodeBlockPage: React.FC = () => {
     }
   };
 
-  const handleGoHome = () => {
-    navigate("/"); // ניווט לדף הבית
-  };
+  
 
   if (!codeBlock) return <p>Loading...</p>;
 
@@ -107,14 +105,13 @@ const CodeBlockPage: React.FC = () => {
       </div>
 
       {isMentor && <p className="readonly-warning">You are in read-only mode.</p>}
+      {!isMentor && <p className="readonly-warning">You are in student mode. write your solution!</p>}
+
 
       <p>Students in room: {studentsCount - 1}</p>
 
       {showSmiley && <div className="smiley">😊</div>} 
 
-      <button className="go-home-button" onClick={handleGoHome}>
-        Go Back To Home Page
-      </button>
     </div></div>
   );
 };

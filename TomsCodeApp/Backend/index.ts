@@ -1,44 +1,42 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
-import { createServer } from "http"; // ליצירת שרת HTTP
-import { Server, Socket } from "socket.io"; // Socket.IO
+import { createServer } from "http"; 
+import { Server, Socket } from "socket.io"; 
 import connectDB from "./db";
 import cors from "cors";
 import codeBlockRoutes from "./routes/codeBlockRoutes";
-import { setSocketIO } from "./Controllers/codeBlockController"; // Import setSocketIO
+import { setSocketIO } from "./Controllers/codeBlockController"; 
 
 dotenv.config();
 
 const app = express();
-const httpServer = createServer(app); // עוטפים את Express בשרת HTTP
+const httpServer = createServer(app); 
 const io = new Server(httpServer, {
   cors: {
-    origin: "*", // אפשר להגדיר כאן דומיינים מורשים
+    origin: "*", 
     methods: ["GET", "POST"],
   },
 });
 
-// הגדרת קונפיגורציות
 app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
-// חיבור לבסיס הנתונים
+// חיבור לדאטה בייס
 connectDB();
 
-// חיבור WebSocket
+// חיבור WebSocketל
 setSocketIO(io);
-
-// נתיב ראשי לבדיקה
+//בדיקה
 app.get("/", (req: Request, res: Response) => {
   res.send("Backend is running!");
 });
 
-// חיבור הנתיב של Code Blocks
+
 app.use("/api/code-blocks", codeBlockRoutes);
 
-// משתנה שיאחסן מידע על החדרים
+//משתנה שיאחסן מידע על הסוקטים
 const rooms: Record<string, { mentor: string | null }> = {};
 io.on("connection", (socket: Socket) => {
   console.log("User connected:", socket.id);
@@ -48,7 +46,7 @@ io.on("connection", (socket: Socket) => {
     socket.join(roomId);
 
 
-    // אם אין מנחה, המשתמש הנוכחי הופך למנחה
+    // אם אין מנחה, המשתמש הראשון הופך למנחה
     if (!rooms[roomId]) {
       rooms[roomId] = { mentor: socket.id };
       socket.emit("role-assigned", "mentor");
@@ -62,7 +60,7 @@ io.on("connection", (socket: Socket) => {
     io.to(roomId).emit("user-count", numUsers);
   });
 
-// עדכון קוד
+// עדכון קוד בלייב 
 socket.on("code-update", ({ roomId, code }) => {
   socket.to(roomId).emit("receive-code", code); // שולח את הקוד לשאר המשתמשים
 });
@@ -76,7 +74,7 @@ socket.on("code-update", ({ roomId, code }) => {
     // אם המנחה עוזב
     if (rooms[roomId]?.mentor === socket.id) {
       delete rooms[roomId];
-      io.to(roomId).emit("mentor-left"); // הודעה לכל המשתמשים שהמנחה עזב
+      io.to(roomId).emit("mentor-left"); 
     } else {
       const numUsers = io.sockets.adapter.rooms.get(roomId)?.size || 0;
       io.to(roomId).emit("user-count", numUsers); // עדכון מספר המשתמשים

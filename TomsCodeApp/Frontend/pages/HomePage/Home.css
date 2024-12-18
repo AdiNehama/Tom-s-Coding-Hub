@@ -10,14 +10,14 @@ body, html {
                  "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background-color: #98878741;
+    background-color: #f3f3f3;
   }
   
 
 :root {
   --primary-color: #373737;
   --secondary-color: #646464;
-  --text-color: #373737;
+  --text-color: #12373a;
   --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --background-color: #f9fafb;
 }

@@ -5,9 +5,8 @@
     border-radius: 8px;
     max-width: 900px;
     padding: 20px;
-    min-height: 70vh;
-    margin-bottom: 20px auto;
-    padding: 40px;
+    min-height: 50vh;
+    padding: 20px;
     justify-content: flex-start; 
     flex-direction: column;
 
@@ -21,7 +20,7 @@
     height: 100%;
   margin: 0;
   padding: 0;
- background-color:#98878741 ;
+ background-color:#e7e1e191 ;
   font-family: Arial, sans-serif; 
   display: flex;
   flex-direction: column;
@@ -51,22 +50,7 @@
     color: rgb(251, 181, 51) !important;
     font-size: 14px;
   }
-  .go-home-button {
-    background-color: #98878741;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 100px;
-
-    display: block; 
-    margin: 20px auto; 
-  }
   
-  .go-home-button:hover {
-    background-color: #899a8a; 
-  }
   .smiley {
     position: fixed; 
     top: 50%; 

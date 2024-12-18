@@ -1,19 +1,18 @@
 import { Request, Response } from "express";
 import CodeBlock from "../models/CodeBlock";
-import { Server } from "socket.io";  // ייבוא של Socket.IO
+import { Server } from "socket.io";  
 
-let io: Server; // משתנה להחזקת אובייקט ה-Socket.IO
+let io: Server;
 
-// פונקציה להגדרת ה-Socket.IO
 export const setSocketIO = (socketIo: Server) => {
   io = socketIo;
 };
 
-// פונקציה להחזרת כל הבלוקים
+//  פונקציה להחזרת כל הבלוקים מהדאטה בייס
 export const getCodeBlocks = (req: Request, res: Response): void => {
   CodeBlock.find()
     .then((codeBlocks) => {
-      res.status(200).json(codeBlocks); // מחזיר את כל הבלוקים
+      res.status(200).json(codeBlocks); 
     })
     .catch((error) => {
       console.error("Error fetching code blocks:", error);
@@ -29,8 +28,8 @@ export const createCodeBlock = (req: Request, res: Response): void => {
     newCodeBlock
       .save()
       .then((savedCodeBlock) => {
-        // שלח התראה לכל המשתמשים המחוברים דרך סוקטים
-        io.emit("new-code-block", savedCodeBlock);  // כל החיבורים מקבלים את ההתראה
+        // שלח התראה לכל המשתמשים המחוברים דרך סוקטים שעלה בלוק חדש
+        io.emit("new-code-block", savedCodeBlock);  
   
         res.status(201).json(savedCodeBlock); // מחזיר את הבלוק החדש שנשמר
       })
@@ -40,7 +39,7 @@ export const createCodeBlock = (req: Request, res: Response): void => {
       });
   };
   
-
+//מייבא בלוק יחיד מהדאטה בייס בשביל הדף של כל בלוק
 export const getCodeBlockById = (req: Request, res: Response): void => {
   const { id } = req.params;
 
