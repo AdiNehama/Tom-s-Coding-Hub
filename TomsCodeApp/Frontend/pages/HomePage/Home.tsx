@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchCodeBlocks } from "../../services/code_block_service";
-import { io } from "socket.io-client";  
+import { io } from "socket.io-client";
 import "./Home.css";
 
 interface CodeBlock {
@@ -21,7 +21,13 @@ const Home: React.FC = () => {
     const loadCodeBlocks = async () => {
       try {
         const blocks = await fetchCodeBlocks();
-        setCodeBlocks(blocks);
+        
+        // בדיקה שהנתונים הם מערך
+        if (Array.isArray(blocks)) {
+          setCodeBlocks(blocks);
+        } else {
+          console.error("Expected an array, but received:", blocks);
+        }
       } catch (error) {
         console.error("Failed to load code blocks", error);
       } finally {
@@ -31,8 +37,8 @@ const Home: React.FC = () => {
 
     loadCodeBlocks();
 
-    //  להתראה על בלוק חדש
-    socket.on("new-code-block", (newBlock) => {
+    // התראה על הוספת בלוק חדש
+    socket.on("new-code-block", (newBlock: CodeBlock) => {
       alert(`A new code block titled "${newBlock.title}" has been added!`);
       setCodeBlocks((prev) => [newBlock, ...prev]); // הוספת הבלוק החדש 
     });
