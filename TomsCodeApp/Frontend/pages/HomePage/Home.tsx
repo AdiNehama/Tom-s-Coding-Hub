@@ -13,8 +13,10 @@ interface CodeBlock {
 }
 
 const Home: React.FC = () => {
-  const [codeBlocks, setCodeBlocks] = useState<CodeBlock[]>([]);
+  const [codeBlocks, setCodeBlocks] = useState<CodeBlock[]>([]);  // אתחול עם מערך ריק
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
   const socket = io("https://toms-coding-hub-1.onrender.com");
 
   useEffect(() => {
@@ -22,13 +24,14 @@ const Home: React.FC = () => {
       try {
         const blocks = await fetchCodeBlocks();
         
-        // בדיקה שהנתונים הם מערך
         if (Array.isArray(blocks)) {
           setCodeBlocks(blocks);
         } else {
+          setError("Failed to load code blocks: Invalid data format");
           console.error("Expected an array, but received:", blocks);
         }
       } catch (error) {
+        setError("Failed to load code blocks");
         console.error("Failed to load code blocks", error);
       } finally {
         setLoading(false);
@@ -37,10 +40,9 @@ const Home: React.FC = () => {
 
     loadCodeBlocks();
 
-    // התראה על הוספת בלוק חדש
     socket.on("new-code-block", (newBlock: CodeBlock) => {
       alert(`A new code block titled "${newBlock.title}" has been added!`);
-      setCodeBlocks((prev) => [newBlock, ...prev]); // הוספת הבלוק החדש 
+      setCodeBlocks((prev) => Array.isArray(prev) ? [newBlock, ...prev] : [newBlock]);
     });
 
     return () => {
@@ -49,11 +51,14 @@ const Home: React.FC = () => {
   }, []);
 
   if (loading) return <p className="loading-text">Loading...</p>;
+  if (error) return <p className="error-text">{error}</p>;
+  if (!Array.isArray(codeBlocks)) return <p className="error-text">Invalid data format</p>;
+  if (codeBlocks.length === 0) return <p className="info-text">No code blocks available</p>;
 
   return (
     <div className="container">
       <h1 className="h1-home">Choose Code Block</h1>
-      <div className="code-block-list">
+      <ul className="code-block-list">  {/* שינוי מ-div ל-ul כי יש לנו li בפנים */}
         {codeBlocks.map((block) => (
           <li key={block._id} className="code-block-item">
             <Link to={`/code-block/${block._id}`} className="code-block-link">
@@ -61,7 +66,7 @@ const Home: React.FC = () => {
             </Link>
           </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };
