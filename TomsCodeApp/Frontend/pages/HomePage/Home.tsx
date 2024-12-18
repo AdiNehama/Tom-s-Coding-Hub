@@ -15,7 +15,7 @@ interface CodeBlock {
 const Home: React.FC = () => {
   const [codeBlocks, setCodeBlocks] = useState<CodeBlock[]>([]);
   const [loading, setLoading] = useState(true);
-  const socket = io("http://localhost:5000");
+  const socket = io("https://tomscodeapp.netlify.app/");
 
   useEffect(() => {
     const loadCodeBlocks = async () => {

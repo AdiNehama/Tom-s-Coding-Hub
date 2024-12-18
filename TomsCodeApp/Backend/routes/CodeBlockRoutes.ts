@@ -1,6 +1,5 @@
 import express from "express";
 import { getCodeBlocks, createCodeBlock, getCodeBlockById } from "../Controllers/codeBlockController";
-import { setSocketIO } from "../Controllers/codeBlockController"; // Import the setSocketIO function
 
 const router = express.Router();
 

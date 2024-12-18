@@ -22,7 +22,7 @@ const CodeBlockPage: React.FC = () => {
   const [studentsCount, setStudentsCount] = useState(0);
   const [showSmiley, setShowSmiley] = useState(false);
 
-  const socket = io("http://localhost:5000"); // חיבור לסוקטים
+  const socket = io("https://tomscodeapp.netlify.app/"); // חיבור לסוקטים
 
   useEffect(() => {
     const loadCodeBlock = async () => {

@@ -5,7 +5,7 @@ import "./About.css";
 const About = () => {
 
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    const socket = io("https://tomscodeapp.netlify.app/");
 
     //  התראה על בלוק חדש
     socket.on("new-code-block", (newBlock) => {
