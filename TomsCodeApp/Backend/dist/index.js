@@ -16,7 +16,7 @@ const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(httpServer, {
     cors: {
-        origin: "*",
+  origin: "https://toms-coding-hub-1.onrender.com", // הכתובת שלך ב-Render
         methods: ["GET", "POST"],
     },
 });
@@ -84,6 +84,6 @@ io.on("connection", (socket) => {
     });
 });
 // הרצת השרת
-httpServer.listen(PORT, () => {
+httpServer.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
 });
