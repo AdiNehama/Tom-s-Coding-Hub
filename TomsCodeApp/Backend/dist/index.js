@@ -18,6 +18,8 @@ const io = new socket_io_1.Server(httpServer, {
     cors: {
         origin: "https://toms-coding-hub-1.onrender.com", //   Render
         methods: ["GET", "POST"],
+           credentials:true    //access-control-allow-credentials:true
+    
     },
 });
 app.use((0, cors_1.default)());
