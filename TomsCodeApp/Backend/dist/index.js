@@ -16,7 +16,7 @@ const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(httpServer, {
     cors: {
-  origin: "https://toms-coding-hub-1.onrender.com", // הכתובת שלך ב-Render
+        origin: "https://toms-coding-hub-1.onrender.com", //   Render
         methods: ["GET", "POST"],
     },
 });
