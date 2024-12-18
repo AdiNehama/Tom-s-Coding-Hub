@@ -60,7 +60,7 @@ io.on("connection", (socket: Socket) => {
     io.to(roomId).emit("user-count", numUsers);
   });
 
-// עדכון קוד בלייב 
+// עדכון קוד בלייב
 socket.on("code-update", ({ roomId, code }) => {
   socket.to(roomId).emit("receive-code", code); // שולח את הקוד לשאר המשתמשים
 });
@@ -74,7 +74,7 @@ socket.on("code-update", ({ roomId, code }) => {
     // אם המנחה עוזב
     if (rooms[roomId]?.mentor === socket.id) {
       delete rooms[roomId];
-      io.to(roomId).emit("mentor-left"); 
+      io.to(roomId).emit("mentor-left"); // הודעה לכל המשתמשים שהמנחה עזב
     } else {
       const numUsers = io.sockets.adapter.rooms.get(roomId)?.size || 0;
       io.to(roomId).emit("user-count", numUsers); // עדכון מספר המשתמשים
