@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchCodeBlocks } from "../../services/code_block_service";
-import { io } from "socket.io-client";  // הוספת import של socket.io
+import { io } from "socket.io-client";  
 import "./Home.css";
 
 interface CodeBlock {
@@ -31,10 +31,10 @@ const Home: React.FC = () => {
 
     loadCodeBlocks();
 
-    // שמיעה להתראה על בלוק חדש
+    //  להתראה על בלוק חדש
     socket.on("new-code-block", (newBlock) => {
       alert(`A new code block titled "${newBlock.title}" has been added!`);
-      setCodeBlocks((prev) => [newBlock, ...prev]); // הוספת הבלוק החדש לסט
+      setCodeBlocks((prev) => [newBlock, ...prev]); // הוספת הבלוק החדש 
     });
 
     return () => {

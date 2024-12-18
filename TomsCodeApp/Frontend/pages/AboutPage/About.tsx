@@ -1,10 +1,8 @@
 import  { useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
 import { io } from "socket.io-client";  
 import "./About.css";
 
 const About = () => {
-  const navigate = useNavigate(); 
 
   useEffect(() => {
     const socket = io("http://localhost:5000");
@@ -19,9 +17,6 @@ const About = () => {
     };
   }, []);
 
-  const handleGoHome = () => {
-    navigate("/");  
-  };
 
   return (
     <div className="container">
@@ -32,9 +27,7 @@ const About = () => {
       <p className="p-about" >
         This website is designed to keep students on track as they practice coding, no matter where I am. By using this platform, I can follow their progress and help them overcome challenges in real-time. Together, we’ll continue to grow and master JavaScript—just like I did!
       </p>
-      <button className="go-home-button" onClick={handleGoHome}>
-        Go Back To Home Page
-      </button>
+     
     </div>
   );
 };

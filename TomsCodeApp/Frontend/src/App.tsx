@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../pages/HomePage/Home.tsx";
 import CodeBlockPage from "../pages/CodeBlockPage/CodeBlock.tsx";   
-import CreateCodeBlock from "../pages/CodeBlockPage/CreateCodeBlock.tsx";
+import CreateCodeBlock from "../pages/CreateCodeBlockPage/CreateCodeBlock.tsx";
 import Navbar from "../components/navBar/navBar.tsx";
 import About from "../pages/AboutPage/About.tsx";
 import { AlertProvider, useAlert } from "../components/Alart/alart.tsx"; 
