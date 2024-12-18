@@ -13,7 +13,7 @@ const app = express();
 const httpServer = createServer(app); 
 const io = new Server(httpServer, {
   cors: {
-  origin: "https://toms-coding-hub-1.onrender.com", //   Render
+    origin: "https://toms-coding-hub-1.onrender.com", 
     methods: ["GET", "POST"],
   },
 });
