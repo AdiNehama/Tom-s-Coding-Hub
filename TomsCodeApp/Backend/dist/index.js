@@ -84,6 +84,6 @@ io.on("connection", (socket) => {
     });
 });
 // הרצת השרת
-httpServer.listen(PORT, '0.0.0.0', () => {
+httpServer.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
