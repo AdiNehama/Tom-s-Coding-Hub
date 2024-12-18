@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchCodeBlocks } from "../../services/code_block_service";
+import { io } from "socket.io-client";  // הוספת import של socket.io
 import "./Home.css";
 
 interface CodeBlock {
@@ -10,16 +11,16 @@ interface CodeBlock {
   solution: string;
   hint: string;
 }
+
 const Home: React.FC = () => {
   const [codeBlocks, setCodeBlocks] = useState<CodeBlock[]>([]);
   const [loading, setLoading] = useState(true);
+  const socket = io("http://localhost:5000");
 
   useEffect(() => {
     const loadCodeBlocks = async () => {
       try {
         const blocks = await fetchCodeBlocks();
-        console.log(blocks);  // הדפס את התוצאה
-
         setCodeBlocks(blocks);
       } catch (error) {
         console.error("Failed to load code blocks", error);
@@ -29,13 +30,23 @@ const Home: React.FC = () => {
     };
 
     loadCodeBlocks();
+
+    // שמיעה להתראה על בלוק חדש
+    socket.on("new-code-block", (newBlock) => {
+      alert(`A new code block titled "${newBlock.title}" has been added!`);
+      setCodeBlocks((prev) => [newBlock, ...prev]); // הוספת הבלוק החדש לסט
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   if (loading) return <p className="loading-text">Loading...</p>;
 
   return (
-    <div className="lobby-container">
-      <h1>Choose Code Block</h1>
+    <div className="container">
+      <h1 className="h1-home">Choose Code Block</h1>
       <div className="code-block-list">
         {codeBlocks.map((block) => (
           <li key={block._id} className="code-block-item">
