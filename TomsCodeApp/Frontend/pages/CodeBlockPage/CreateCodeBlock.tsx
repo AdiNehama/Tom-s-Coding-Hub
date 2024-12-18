@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { createCodeBlock } from "../../services/code_block_service"; 
+import { useNavigate } from "react-router-dom";
+import { createCodeBlock } from "../../services/code_block_service";
 
 const CreateCodeBlock: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -8,6 +9,7 @@ const CreateCodeBlock: React.FC = () => {
   const [solution, setSolution] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,6 +18,7 @@ const CreateCodeBlock: React.FC = () => {
       const createdBlock = await createCodeBlock(newCodeBlock);
       setSuccess("Code block created successfully!");
       console.log("New code block created:", createdBlock);
+      navigate("/"); // חזרה לדף הבית
     } catch (err) {
       console.error("Error creating code block:", err);
       setError("Failed to create code block");
