@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://tomscodeapp.netlify.app/api/code-blocks"; 
+const API_URL = "https://toms-coding-hub-1.onrender.com"; 
 
 export const fetchCodeBlocks = async () => {
   try {

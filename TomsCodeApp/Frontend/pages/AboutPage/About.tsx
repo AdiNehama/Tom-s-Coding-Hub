@@ -1,11 +1,11 @@
-import   { useEffect } from "react";
+import React, { useEffect } from "react";
 import { io } from "socket.io-client";  
 import "./About.css";
 
 const About = () => {
 
   useEffect(() => {
-    const socket = io("https://tomscodeapp.netlify.app/");
+    const socket = io("https://toms-coding-hub-1.onrender.com");
 
     //  התראה על בלוק חדש
     socket.on("new-code-block", (newBlock) => {
