@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// URL של ה-API להחזרת כל הבלוקים
 const API_URL = "http://localhost:5000/api/code-blocks"; 
 
 export const fetchCodeBlocks = async () => {
@@ -23,7 +22,6 @@ export const fetchCodeBlock = async (id: string) => {
     }
   };
   
-// URL של ה-API ליצירת בלוק חדש
 
 export const createCodeBlock = async (newCodeBlock: { title: string; description: string; hint: string; solution: string }) => {
     try {

@@ -19,7 +19,7 @@ const CreateCodeBlock: React.FC = () => {
       const createdBlock = await createCodeBlock(newCodeBlock);
       setSuccess("Code block created successfully!");
       console.log("New code block created:", createdBlock);
-      navigate("/"); // חזרה לדף הבית
+      navigate("/"); 
     } catch (err) {
       console.error("Error creating code block:", err);
       setError("Failed to create code block");
