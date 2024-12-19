@@ -14,7 +14,7 @@ const httpServer = createServer(app);
 
 // הגדרת CORS ל-Express
 const corsOptions = {
-  origin: "https://toms-coding-hub-front.onrender.com", // כתובת הפרונט
+  origin: "https://toms-coding-hub-front.onrender.com/", // כתובת הפרונט
   methods: ["GET", "POST"], // שיטות HTTP מותרות
   credentials: true, // מאפשר שליחת credentials (עוגיות או headers מותאמים אישית)
 };
