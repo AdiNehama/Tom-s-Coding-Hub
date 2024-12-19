@@ -27,9 +27,14 @@ app.use((0, cors_1.default)(corsOptions));
 
 // הגדרת WebSocket עם CORS
 const io = new socket_io_1.Server(httpServer, {
-    cors: corsOptions,
+  cors: {
+    ...corsOptions,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Content-Range", "X-Content-Range"]
+  },
+  pingTimeout: 60000, // זמן timeout ארוך יותר
+  pingInterval: 25000 // בדיקת חיבור תכופה יותר
 });
-
 app.use(express_1.default.json());
 
 const PORT = process.env.PORT || 5000;
