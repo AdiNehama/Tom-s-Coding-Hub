@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://toms-coding-hub-1.onrender.com/api/code-blocks"; 
+const API_URL = "https://toms-coding-hub-1.onrender.com"; 
 
 // פונקציה שמבצעת בדיקה אם הנתונים הם מערך, ואם לא מחזירה מערך ריק
 const ensureArray = (data: any) => {
