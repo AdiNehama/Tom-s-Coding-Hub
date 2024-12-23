@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "https://toms-coding-hub-1.onrender.com/api"; // שינינו את הנתיב
 
 // פונקציה שמבצעת בדיקה אם הנתונים הם מערך, ואם לא מחזירה מערך ריק
-const ensureArray = (data: any) => {
+const ensureArray = (data) => {
   if (Array.isArray(data)) {
     return data;
   }
