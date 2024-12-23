@@ -14,6 +14,7 @@ const cors_1 = __importDefault(require("cors"));
 const codeBlockRoutes_1 = __importDefault(require("./routes/codeBlockRoutes"));
 const codeBlockController_1 = require("./Controllers/codeBlockController");
 const path_1 = __importDefault(require("path"));
+const express = require('express');
 
 dotenv_1.default.config();
 
@@ -29,7 +30,7 @@ const corsOptions = {
 app.use((0, cors_1.default)(corsOptions));
 
 // משרת את הקבצים הסטטיים מתוך frontend/dist
-app.use(express_1.static(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist')));
+app.use(express.static(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist')));
 
 app.get("/", (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist', 'index.html'));
