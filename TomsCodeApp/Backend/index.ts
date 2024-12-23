@@ -23,13 +23,12 @@ const corsOptions = {
 app.use(cors(corsOptions)); // שימוש בהגדרות CORS ב-Express
 app.use(express.json());
 
-// משרת את הקבצים הסטטיים מתוך frontend/dist
-app.use("/frontend", express.static(path.join(__dirname, 'Frontend/dist')));
+
+app.use(express.static(path.default.join(__dirname, '..', 'Frontend', 'dist')));
 
 app.get("/", (req, res) => {
-    res.sendFile(path_1.default.join('TomsCodeApp','TomsCodeApp','Frontend','dist' ,'index.html'));
+    res.sendFile(path.default.join(__dirname, '..', 'Frontend', 'dist', 'index.html'));
 });
-
 
 const io = new Server(httpServer, {
   cors: {
