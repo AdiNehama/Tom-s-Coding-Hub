@@ -1,22 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const http_1 = require("http");
-const socket_io_1 = require("socket.io");
-const db_1 = __importDefault(require("./db"));
-const cors_1 = __importDefault(require("cors"));
-const codeBlockRoutes_1 = __importDefault(require("./routes/codeBlockRoutes"));
-const codeBlockController_1 = require("./Controllers/codeBlockController");
-const path_1 = __importDefault(require("path"));
+const express = require('express');
+const dotenv = require('dotenv');
+const { createServer } = require('http');
+const { Server } = require('socket.io');
+const connectDB = require('./db');
+const cors = require('cors');
+const codeBlockRoutes = require('./routes/codeBlockRoutes');
+const { setSocketIO } = require('./Controllers/codeBlockController');
+const path = require('path');
 
-dotenv_1.default.config();
+dotenv.config();
 
-const app = (0, express_1.default)();
-const httpServer = (0, http_1.createServer)(app);
+const app = express();
+const httpServer = createServer(app);
 
 // הגדרת CORS ל-Express
 const corsOptions = {
@@ -24,19 +19,18 @@ const corsOptions = {
     methods: ["GET", "POST"], // שיטות HTTP מותרות
     credentials: true // מאפשר שליחת credentials (עוגיות או headers מותאמים אישית)
 };
-app.use((0, cors_1.default)(corsOptions));
+
+app.use(cors(corsOptions));
 
 // משרת את הקבצים הסטטיים מתוך frontend/dist
-app.use(express_1.static(path_1.default.join(__dirname, '..', 'Frontend', 'dist')));
+app.use(express.static(path.join(__dirname, '..', 'Frontend', 'dist')));
 
 app.get("/", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, '..', 'Frontend', 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'Frontend', 'dist', 'index.html'));
 });
 
-
-
 // הגדרת WebSocket עם CORS
-const io = new socket_io_1.Server(httpServer, {
+const io = new Server(httpServer, {
     cors: {
         ...corsOptions,
         allowedHeaders: ["Content-Type", "Authorization"],
@@ -46,15 +40,15 @@ const io = new socket_io_1.Server(httpServer, {
     pingInterval: 25000 // בדיקת חיבור תכופה יותר
 });
 
-app.use(express_1.default.json());
+app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
 // חיבור לדאטה בייס
-(0, db_1.default)();
+connectDB();
 
 // חיבור WebSocket
-(0, codeBlockController_1.setSocketIO)(io);
+setSocketIO(io);
 
 // בדיקה
 app.get("/", (req, res) => {
@@ -62,7 +56,7 @@ app.get("/", (req, res) => {
 });
 
 // ראוטים
-app.use("/api/code-blocks", codeBlockRoutes_1.default);
+app.use("/api/code-blocks", codeBlockRoutes);
 
 // משתנה שיאחסן מידע על הסוקטים
 const rooms = {};
