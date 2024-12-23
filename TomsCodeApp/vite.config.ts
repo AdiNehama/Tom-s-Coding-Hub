@@ -2,8 +2,13 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [react()],
+   plugins: [react()],
+  base: '/frontend/dist/', 
   server: {
-    open: true,  // יפתח את הדפדפן אוטומטית
-  }
+    open: true,
+  },
+  build: {
+    outDir: 'frontend/dist', 
+    sourcemap: true, // הפעלת Source Maps
+  },
 });
