@@ -23,12 +23,12 @@ const corsOptions = {
 app.use(cors(corsOptions)); // שימוש בהגדרות CORS ב-Express
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, "..", "Frontend", "dist")));
 
-app.use(express.static(path.default.join(__dirname, '..', 'Frontend', 'dist')));
-
-app.get("/", (req, res) => {
-    res.sendFile(path.default.join(__dirname, '..', 'Frontend', 'dist', 'index.html'));
+app.get("/", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "..", "Frontend", "dist", "index.html"));
 });
+
 
 const io = new Server(httpServer, {
   cors: {
