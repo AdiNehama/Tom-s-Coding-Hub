@@ -15,8 +15,8 @@ const path_1 = __importDefault(require("path"));
 
 dotenv_1.default.config();
 
-const app = (0, express_1.default)();
-const httpServer = (0, http_1.createServer)(app);
+const app = express_1.default();
+const httpServer = http_1.createServer(app);
 
 // הגדרת CORS ל-Express
 const corsOptions = {
@@ -24,16 +24,11 @@ const corsOptions = {
     methods: ["GET", "POST"], // שיטות HTTP מותרות
     credentials: true // מאפשר שליחת credentials (עוגיות או headers מותאמים אישית)
 };
-app.use((0, cors_1.default)(corsOptions));
-
-// משרת את הקבצים הסטטיים מתוך frontend/dist
-app.use(express_1.default.static(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist')));
+app.use(cors_1.default(corsOptions));
 
 app.get("/", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist', 'index.html'));
+  res.send("Express + JavaScript Server");
 });
-console.log(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist'));
-
 
 // הגדרת WebSocket עם CORS
 const io = new socket_io_1.Server(httpServer, {
@@ -51,10 +46,10 @@ app.use(express_1.default.json());
 const PORT = process.env.PORT || 5000;
 
 // חיבור לדאטה בייס
-(0, db_1.default)();
+db_1.default();
 
 // חיבור WebSocket
-(0, codeBlockController_1.setSocketIO)(io);
+codeBlockController_1.setSocketIO(io);
 
 // בדיקה
 app.get("/", (req, res) => {
