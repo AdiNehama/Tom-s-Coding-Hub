@@ -26,9 +26,8 @@ app.use(express.json());
 // משרת את הקבצים הסטטיים מתוך frontend/dist
 app.use("/frontend", express.static(path.join(__dirname, 'Frontend/dist')));
 
-// שולח את ה-HTML הראשי כשיש בקשה ל-root
 app.get("/", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.send("Backend is running!");
 });
 
 const io = new Server(httpServer, {
