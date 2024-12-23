@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 const API_URL = "https://toms-coding-hub-1.onrender.com/api"; // שינינו את הנתיב
@@ -17,7 +16,7 @@ const ensureArray = (data: any) => {
 
 export const fetchCodeBlocks = async () => {
   try {
-    const response = await axios.get(${API_URL}/code-blocks); // תיקון הנתיב
+    const response = await axios.get(`${API_URL}/code-blocks`); // תיקון הנתיב
     console.log("API Response:", response.data);
     return ensureArray(response.data);
   } catch (error) {
@@ -28,10 +27,10 @@ export const fetchCodeBlocks = async () => {
 
 export const fetchCodeBlock = async (id: string) => {
   try {
-    const response = await axios.get(${API_URL}/code-blocks/${id}); // תיקון הנתיב
+    const response = await axios.get(`${API_URL}/code-blocks/${id}`); // תיקון הנתיב
     return response.data;
   } catch (error) {
-    console.error(Error fetching code block with id ${id}:, error);
+    console.error(`Error fetching code block with id ${id}:`, error);
     throw error;
   }
 };
@@ -43,7 +42,7 @@ export const createCodeBlock = async (newCodeBlock: {
   solution: string; 
 }) => {
   try {
-    const response = await axios.post(${API_URL}/code-blocks/create, newCodeBlock); // תיקון הנתיב
+    const response = await axios.post(`${API_URL}/code-blocks/create`, newCodeBlock); // תיקון הנתיב
     return response.data;
   } catch (error) {
     console.error("Error creating code block:", error);
