@@ -30,8 +30,9 @@ app.use((0, cors_1.default)(corsOptions));
 app.use("/frontend", express_1.default.static(path_1.default.join(__dirname, 'Frontend/dist')));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+    res.sendFile(path_1.default.join(__dirname, 'Frontend', 'dist', 'index.html'));
 });
+
 
 
 // הגדרת WebSocket עם CORS
