@@ -32,6 +32,8 @@ app.use(express_1.default.static(path_1.default.join(__dirname, '..', '..', 'Fro
 app.get("/", (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist', 'index.html'));
 });
+console.log(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist'));
+
 
 // הגדרת WebSocket עם CORS
 const io = new socket_io_1.Server(httpServer, {
