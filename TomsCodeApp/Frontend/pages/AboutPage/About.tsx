@@ -1,11 +1,12 @@
-import   { useEffect } from "react";
+
+import  { useEffect } from "react";
 import { io } from "socket.io-client";  
 import "./About.css";
 
 const About = () => {
 
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    const socket = io("https://toms-coding-hub-1.onrender.com");
 
     //  התראה על בלוק חדש
     socket.on("new-code-block", (newBlock) => {
