@@ -27,7 +27,7 @@ const corsOptions = {
 app.use((0, cors_1.default)(corsOptions));
 
 // משרת את הקבצים הסטטיים מתוך frontend/dist
-app.use(express.static(path_1.default.join(__dirname, '..', 'Frontend', 'dist')));
+app.use(express_1.static(path_1.default.join(__dirname, '..', 'Frontend', 'dist')));
 
 app.get("/", (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '..', 'Frontend', 'dist', 'index.html'));
