@@ -23,12 +23,9 @@ const corsOptions = {
 app.use(cors(corsOptions)); // שימוש בהגדרות CORS ב-Express
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "..", "Frontend", "dist")));
-
 app.get("/", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "Frontend", "dist", "index.html"));
+  res.send("Express + TypeScript Server");
 });
-console.log(path_1.default.join(__dirname, '..', 'Frontend', 'dist'));
 
 
 const io = new Server(httpServer, {
