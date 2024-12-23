@@ -24,7 +24,7 @@ app.use(cors(corsOptions)); // שימוש בהגדרות CORS ב-Express
 app.use(express.json());
 
 // משרת את הקבצים הסטטיים מתוך frontend/dist
-app.use("/frontend", express.static(path.join(__dirname, 'frontend/dist')));
+app.use("/frontend", express.static(path.join(__dirname, 'Frontend/dist')));
 
 // שולח את ה-HTML הראשי כשיש בקשה ל-root
 app.get("/", (req: Request, res: Response) => {
