@@ -11,6 +11,7 @@ const db_1 = __importDefault(require("./db"));
 const cors_1 = __importDefault(require("cors"));
 const codeBlockRoutes_1 = __importDefault(require("./routes/codeBlockRoutes"));
 const codeBlockController_1 = require("./Controllers/codeBlockController");
+const path_1 = __importDefault(require("path"));
 
 dotenv_1.default.config();
 
@@ -25,16 +26,25 @@ const corsOptions = {
 };
 app.use((0, cors_1.default)(corsOptions));
 
+// משרת את הקבצים הסטטיים מתוך frontend/dist
+app.use("/frontend", express_1.default.static(path_1.default.join(__dirname, 'frontend/dist')));
+
+// שולח את ה-HTML הראשי כשיש בקשה ל-root
+app.get("/", (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, 'index.html'));
+});
+
 // הגדרת WebSocket עם CORS
 const io = new socket_io_1.Server(httpServer, {
-  cors: {
-    ...corsOptions,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Content-Range", "X-Content-Range"]
-  },
-  pingTimeout: 60000, // זמן timeout ארוך יותר
-  pingInterval: 25000 // בדיקת חיבור תכופה יותר
+    cors: {
+        ...corsOptions,
+        allowedHeaders: ["Content-Type", "Authorization"],
+        exposedHeaders: ["Content-Range", "X-Content-Range"]
+    },
+    pingTimeout: 60000, // זמן timeout ארוך יותר
+    pingInterval: 25000 // בדיקת חיבור תכופה יותר
 });
+
 app.use(express_1.default.json());
 
 const PORT = process.env.PORT || 5000;
