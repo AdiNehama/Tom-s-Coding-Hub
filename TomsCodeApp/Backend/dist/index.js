@@ -30,9 +30,10 @@ app.use((0, cors_1.default)(corsOptions));
 app.use("/frontend", express_1.default.static(path_1.default.join(__dirname, 'Frontend/dist')));
 
 // שולח את ה-HTML הראשי כשיש בקשה ל-root
-app.get("/", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, 'index.html'));
+app.get("/", (req: Request, res: Response) => {
+  res.send("Backend is running!");
 });
+
 
 // הגדרת WebSocket עם CORS
 const io = new socket_io_1.Server(httpServer, {
