@@ -4,8 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const express = require('express');
-
 const dotenv_1 = __importDefault(require("dotenv"));
 const http_1 = require("http");
 const socket_io_1 = require("socket.io");
@@ -14,7 +12,6 @@ const cors_1 = __importDefault(require("cors"));
 const codeBlockRoutes_1 = __importDefault(require("./routes/codeBlockRoutes"));
 const codeBlockController_1 = require("./Controllers/codeBlockController");
 const path_1 = __importDefault(require("path"));
-const express = require('express');
 
 dotenv_1.default.config();
 
@@ -30,13 +27,11 @@ const corsOptions = {
 app.use((0, cors_1.default)(corsOptions));
 
 // משרת את הקבצים הסטטיים מתוך frontend/dist
-app.use(express.static(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist')));
+app.use(express_1.default.static(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist')));
 
 app.get("/", (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '..', '..', 'Frontend', 'dist', 'index.html'));
 });
-
-
 
 // הגדרת WebSocket עם CORS
 const io = new socket_io_1.Server(httpServer, {
@@ -125,7 +120,7 @@ io.on("connection", (socket) => {
     });
 });
 
-
+// הרצת השרת
 httpServer.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
