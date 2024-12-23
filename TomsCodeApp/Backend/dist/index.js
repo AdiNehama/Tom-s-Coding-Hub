@@ -26,7 +26,7 @@ const corsOptions = {
 };
 app.use(cors_1.default(corsOptions));
 
-app.use(express_1.default.static(path_1.default.join(__dirname, '../Frontend/dist'), {
+app.use(express_1.default.static(path_1.default.join(__dirname, '../dist'), {
     setHeaders: (res, path) => {
         if (path.endsWith('.js')) {
             res.setHeader('Content-Type', 'application/javascript');
