@@ -23,10 +23,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // משרת את הקבצים הסטטיים מתוך frontend/dist
-app.use(express.static(path.join(__dirname, '..', 'Frontend', 'dist')));
+app.use(express.static(path.join(__dirname,'..', '..', 'Frontend', 'dist')));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'Frontend', 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname,'..', '..', 'Frontend', 'dist', 'index.html'));
 });
 
 // הגדרת WebSocket עם CORS
