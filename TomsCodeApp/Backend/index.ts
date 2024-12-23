@@ -23,27 +23,28 @@ const corsOptions = {
 app.use(cors(corsOptions)); // שימוש בהגדרות CORS ב-Express
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, '../dist'), {
+app.use(
+  express.static(path.join(__dirname, "../Frontend/dist"), {
     setHeaders: (res, path) => {
-        if (path.endsWith('.js')) {
-            res.setHeader('Content-Type', 'application/javascript');
-        }
-    }
-}));
+      if (path.endsWith(".js")) {
+        res.setHeader("Content-Type", "application/javascript");
+      }
+    },
+  })
+);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
-
 const io = new Server(httpServer, {
   cors: {
     ...corsOptions,
     allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Content-Range", "X-Content-Range"]
+    exposedHeaders: ["Content-Range", "X-Content-Range"],
   },
   pingTimeout: 60000, // זמן timeout ארוך יותר
-  pingInterval: 25000 // בדיקת חיבור תכופה יותר
+  pingInterval: 25000, // בדיקת חיבור תכופה יותר
 });
 
 const PORT = process.env.PORT || 5000;
