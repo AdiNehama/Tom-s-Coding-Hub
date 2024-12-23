@@ -29,9 +29,13 @@ app.use(
       if (path.endsWith(".js")) {
         res.setHeader("Content-Type", "application/javascript");
       }
+      if (path.endsWith(".css")) {
+        res.setHeader("Content-Type", "text/css");
+      }
     },
   })
 );
+
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
