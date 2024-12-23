@@ -6,6 +6,7 @@ import connectDB from "./db";
 import cors from "cors";
 import codeBlockRoutes from "./routes/codeBlockRoutes";
 import { setSocketIO } from "./Controllers/codeBlockController";
+import path from "path";
 
 dotenv.config();
 
@@ -22,6 +23,14 @@ const corsOptions = {
 app.use(cors(corsOptions)); // שימוש בהגדרות CORS ב-Express
 app.use(express.json());
 
+// משרת את הקבצים הסטטיים מתוך frontend/dist
+app.use("/frontend", express.static(path.join(__dirname, 'frontend/dist')));
+
+// שולח את ה-HTML הראשי כשיש בקשה ל-root
+app.get("/", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 const io = new Server(httpServer, {
   cors: {
     ...corsOptions,
@@ -31,7 +40,6 @@ const io = new Server(httpServer, {
   pingTimeout: 60000, // זמן timeout ארוך יותר
   pingInterval: 25000 // בדיקת חיבור תכופה יותר
 });
-
 
 const PORT = process.env.PORT || 5000;
 
