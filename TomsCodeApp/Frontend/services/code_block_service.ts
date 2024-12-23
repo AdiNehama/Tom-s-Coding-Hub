@@ -1,33 +1,23 @@
+
 import axios from "axios";
 
-const API_URL = "https://toms-coding-hub-1.onrender.com/api";
+const API_URL = "https://toms-coding-hub-1.onrender.com/api"; // שינינו את הנתיב
 
-interface CodeBlock {
-  title: string;
-  description: string;
-  hint: string;
-  solution: string;
-  id?: string;
-}
-
-interface ApiResponse {
-  data: CodeBlock[];
-}
-
-const ensureArray = (data: CodeBlock[] | ApiResponse | unknown): CodeBlock[] => {
+// פונקציה שמבצעת בדיקה אם הנתונים הם מערך, ואם לא מחזירה מערך ריק
+const ensureArray = (data: any) => {
   if (Array.isArray(data)) {
     return data;
   }
-  if (data && typeof data === 'object' && 'data' in data && Array.isArray((data as ApiResponse).data)) {
-    return (data as ApiResponse).data;
+  if (data && typeof data === 'object' && Array.isArray(data.data)) {
+    return data.data;
   }
   console.error("Received data is not an array:", data);
-  return [];
+  return []; 
 };
 
-export const fetchCodeBlocks = async (): Promise<CodeBlock[]> => {
+export const fetchCodeBlocks = async () => {
   try {
-    const response = await axios.get<CodeBlock[] | ApiResponse>(`${API_URL}/code-blocks`);
+    const response = await axios.get(${API_URL}/code-blocks); // תיקון הנתיב
     console.log("API Response:", response.data);
     return ensureArray(response.data);
   } catch (error) {
@@ -36,19 +26,24 @@ export const fetchCodeBlocks = async (): Promise<CodeBlock[]> => {
   }
 };
 
-export const fetchCodeBlock = async (id: string): Promise<CodeBlock> => {
+export const fetchCodeBlock = async (id: string) => {
   try {
-    const response = await axios.get<CodeBlock>(`${API_URL}/code-blocks/${id}`);
+    const response = await axios.get(${API_URL}/code-blocks/${id}); // תיקון הנתיב
     return response.data;
   } catch (error) {
-    console.error(`Error fetching code block with id ${id}:`, error);
+    console.error(Error fetching code block with id ${id}:, error);
     throw error;
   }
 };
 
-export const createCodeBlock = async (newCodeBlock: Omit<CodeBlock, 'id'>): Promise<CodeBlock> => {
+export const createCodeBlock = async (newCodeBlock: { 
+  title: string; 
+  description: string; 
+  hint: string; 
+  solution: string; 
+}) => {
   try {
-    const response = await axios.post<CodeBlock>(`${API_URL}/code-blocks/create`, newCodeBlock);
+    const response = await axios.post(${API_URL}/code-blocks/create, newCodeBlock); // תיקון הנתיב
     return response.data;
   } catch (error) {
     console.error("Error creating code block:", error);
