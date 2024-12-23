@@ -24,7 +24,7 @@ app.use(cors(corsOptions)); // שימוש בהגדרות CORS ב-Express
 app.use(express.json());
 
 app.use(
-  express.static(path.join(__dirname, "../Frontend/dist"), {
+  express.static(path.join(__dirname, "../Frontend/dist/assets"), {
     setHeaders: (res, path) => {
       if (path.endsWith(".js")) {
         res.setHeader("Content-Type", "application/javascript");
